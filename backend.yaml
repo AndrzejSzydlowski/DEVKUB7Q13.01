@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prod_app
+    tier: backend
+  name: prod-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prod_app
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: prod_app
+        tier: backend
+    spec:
+      containers:
+      - name: prod-back
+        image: debian:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: POSTGRES_PASSWORD
+          value: "postgres"
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_DB
+          value: "news"
+        - name: DATABASE_PORT
+          value: "5432"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prod_app
+    tier: backend
+  name: prod-back
+spec:
+  type: NodePort
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 80
+  selector:
+    app: prod_app
+    tier: backend

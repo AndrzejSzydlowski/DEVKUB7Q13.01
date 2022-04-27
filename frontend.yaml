@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prod_app
+    tier: frontend
+  name: prod-front
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: prod_app
+            tier: frontend
+    template:
+        metadata:
+            labels:
+                app: prod_app
+                tier: frontend
+        spec:
+          containers:
+          - name: webui
+            image: nginx:latest
+            ports:
+            - name: http
+              containerPort: 8080
+            env:
+            - name: BACKEND_PORT
+              value: "80"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: prod-front
+spec:
+    type: NodePort
+    ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+    selector:
+        app: prod_app
+        tier: frontend

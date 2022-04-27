@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql
+spec:
+  serviceName: postgresql
+  selector:
+    matchLabels:
+      app: prod_app
+      tier: postgresql
+  template:
+    metadata:
+      labels:
+        app: prod_app
+        tier: postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:13-alpine
+        env:
+        - name: POSTGRES_PASSWORD
+          value: "postgres"
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_DB
+          value: "news"
+        ports:
+        - containerPort: 5432
+          name: postgredb
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql
+  labels:
+    app: prod_app
+    tier: postgresql
+spec:
+  type: NodePort
+  ports:
+  - port: 5432
+  selector:
+    app: prod_app
+    tier: postgresql
