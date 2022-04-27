@@ -1,6 +1,6 @@
 # Домашнее задание к занятию "13.1 контейнеры, поды, deployment, statefulset, services, endpoints"
 ## Задание 1: подготовить тестовый конфиг для запуска приложения 
-### Конфигурация тестовой среды для фронтенда и бэкенда - app-deploy.yaml Конфигурация для БД - pg.yaml (лежат в папке yaml)
+### Конфигурация тестовой среды для фронтенда и бэкенда - [app-deploy.yaml](app-deploy.yaml) Конфигурация для БД - [pg.yaml](pg.yaml)
 
 ```
 rimm@cp1:~$ kubectl get deployment
@@ -97,7 +97,7 @@ Events:
 ```
 
 ## Задание 2: подготовить конфиг для production окружения
-### Конфигурация фронтенда - frontend.yaml, бэкенда - backend.yaml Конфигурация для БД - bd.yaml (лежат в папке yaml)
+### Конфигурация фронтенда - [frontend.yaml](frontend.yaml), бэкенда - [backend.yaml](backend.yaml) Конфигурация для БД - [bd.yaml](bd.yaml)
 ```
 rimm@cp1:~$ kubectl get deployments.apps
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
